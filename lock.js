@@ -51,7 +51,7 @@ window.MizanLock = (function () {
           margin-top:10px;word-break:break-all;color:#ecd39a;display:none}
       </style>
       <div class="box">
-        <img src="assets/logo.png" alt="ميزان النبط">
+        <img src="logo.png" alt="ميزان النبط">
         <h2>أدوات خاصة</h2>
         <p>هذه الصفحة للمالك فقط — أدخل كلمة المرور.</p>
         <input id="ml-pass" type="password" placeholder="كلمة المرور" autocomplete="current-password">
@@ -60,7 +60,7 @@ window.MizanLock = (function () {
         <details>
           <summary>تغيير كلمة المرور</summary>
           <p style="margin:10px 0 0">اكتب كلمتك الجديدة، وانسخ السطر الناتج وضعه مكان
-            <code>PASS_HASH</code> في ملف <code>assets/lock.js</code>.</p>
+            <code>PASS_HASH</code> في ملف <code>lock.js</code>.</p>
           <div class="gen">
             <input id="ml-new" placeholder="كلمة المرور الجديدة">
             <button id="ml-hash" style="width:auto;padding:10px 16px;margin:0">توليد</button>

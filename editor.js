@@ -134,7 +134,7 @@
       ", mutaharrik: " + q(r.mutaharrik) + ", note: " + q(r.note) + " },").join("\n");
     return `/* =====================================================================
    ميزان النبط — ملف المحتوى (لوحة التحكم)
-   وُلِّد من محرّر الكلمات. استبدل به assets/data.js في مستودعك.
+   وُلِّد من محرّر الكلمات. استبدل به data.js في مستودعك.
    ===================================================================== */
 
 const SITE = {
@@ -175,7 +175,7 @@ ${roots}
     const a = document.createElement("a"); a.href = url; a.download = "data.js";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 4000);
-    toast("نزّل data.js — ضعه في مجلّد assets/ بمستودعك.");
+    toast("نزّل data.js — ضعه في مجلّد  بمستودعك.");
   });
 
   $("#reset").addEventListener("click", () => {

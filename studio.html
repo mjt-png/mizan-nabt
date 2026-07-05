@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>استوديو التسجيل — ميزان النبط</title>
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .studio{padding:40px 0 90px}
+  .back{color:var(--muted);font-size:.95rem}
+  .back:hover{color:var(--gold-300)}
+  .studio h1{font-family:"Aref Ruqaa",serif;font-size:clamp(2rem,6vw,3rem);margin:14px 0 6px}
+  .studio .lead{color:var(--muted);max-width:640px}
+  .steps{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 34px}
+  .step{flex:1 1 200px;background:var(--ink-800);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .step b{color:var(--gold-300);display:block;margin-bottom:4px;font-family:"Aref Ruqaa",serif;font-size:1.2rem}
+  .step p{margin:0;color:var(--muted);font-size:.92rem}
+  .group{margin-top:34px}
+  .group > h2{font-family:"Aref Ruqaa",serif;color:var(--gold-300);font-size:1.7rem;
+    display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .group > h2::before{content:"◆";color:var(--gold-500);font-size:.7rem}
+  .rec-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr)}
+  @media(max-width:720px){.rec-grid{grid-template-columns:1fr}}
+  .rec{background:linear-gradient(180deg,var(--ink-800),var(--ink-850));
+    border:1px solid var(--line);border-radius:16px;padding:18px}
+  .rec .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+  .rec .word{font-family:"Amiri",serif;font-size:2.4rem;color:var(--gold-200,#ecd39a);line-height:1}
+  .rec .tag{font-size:.75rem;font-weight:700;color:#20160a;background:var(--gold-grad);
+    padding:4px 12px;border-radius:999px;white-space:nowrap}
+  .rec .file{font-size:.72rem;color:var(--muted-2);direction:ltr;text-align:start;
+    font-family:ui-monospace,monospace;margin-bottom:12px}
+  .rec .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .rbtn{border:none;cursor:pointer;border-radius:11px;padding:11px 16px;font-family:"Cairo";
+    font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+  .rbtn.record{background:linear-gradient(160deg,#e5564f,#b8352f);color:#fff}
+  .rbtn.record.on{background:linear-gradient(160deg,#8a8f9e,#5c6070)}
+  .rbtn.record svg{width:16px;height:16px;fill:currentColor}
+  .rbtn.dl{background:var(--gold-grad);color:#20160a}
+  .rbtn.dl svg{width:16px;height:16px;fill:#20160a}
+  .rbtn:disabled{opacity:.4;cursor:not-allowed}
+  .rec audio{width:100%;margin-top:12px;display:none}
+  .rec.has audio{display:block}
+  .rec .status{font-size:.82rem;color:var(--muted);margin-inline-start:auto}
+  .rec.saved{border-color:var(--gold-500)}
+  .note-box{background:rgba(217,168,92,.06);border:1px solid rgba(217,168,92,.25);
+    border-radius:14px;padding:16px 18px;color:var(--muted);font-size:.92rem;margin-top:8px}
+  .note-box b{color:var(--gold-300)}
+  .custom{margin-top:40px;background:var(--ink-800);border:1px solid var(--line);
+    border-radius:16px;padding:20px}
+  .custom input{background:var(--ink-950);border:1px solid var(--line);color:var(--cream);
+    border-radius:10px;padding:10px 14px;font-family:"Cairo";width:220px;max-width:100%}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="logo.png" alt="شعار"><b>ميزان النبط</b></a>
+    <a class="cta-mini" href="index.html">← رجوع للموقع</a>
+  </div>
+</header>
+
+<main class="studio">
+  <div class="wrap">
+    <a class="back" href="index.html">← الصفحة الرئيسية</a>
+    <h1 class="gold-text">استوديو التسجيل</h1>
+    <p class="lead">سجّل نطق الكلمات بصوتك مباشرةً من المتصفح. المقطع يُحفظ بصيغة MP3 باسمه الصحيح،
+      يشتغل على الآيفون والأندرويد والكمبيوتر.</p>
+
+    <div class="steps">
+      <div class="step"><b>١</b><p>اضغط «تسجيل» وانطق الكلمة، ثم «إيقاف».</p></div>
+      <div class="step"><b>٢</b><p>اسمع المعاينة — وإن ما عجبتك أعِد التسجيل.</p></div>
+      <div class="step"><b>٣</b><p>اضغط «تنزيل» فينزّل الملف باسمه الصحيح.</p></div>
+      <div class="step"><b>٤</b><p>حُط الملف في مجلّد <code>audio/</code> وارفعه على GitHub.</p></div>
+    </div>
+
+    <div class="note-box">
+      <b>ملاحظة:</b> يطلب المتصفح إذن استخدام المايكروفون أول مرة — اسمح له.
+      لا يُرفع صوتك لأي مكان، كل شيء يتم داخل جهازك، والملف ينزل عندك أنت.
+    </div>
+
+    <div id="groups"></div>
+
+    <div class="custom">
+      <h2 style="font-family:'Aref Ruqaa',serif;color:var(--gold-300);margin:0 0 6px">تسجيل حرّ</h2>
+      <p style="color:var(--muted);margin:0 0 14px;font-size:.92rem">سجّل أي مقطع باسم من عندك (اكتب الاسم بدون مسافات).</p>
+      <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <input id="custom-name" placeholder="مثال: my-clip" value="my-clip">
+        <button class="rbtn record" id="custom-rec"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>تسجيل</button>
+        <button class="rbtn dl" id="custom-dl" disabled><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0l4-4m-4 4l-4-4M5 21h14" stroke="#20160a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>تنزيل</button>
+        <span class="status" id="custom-status"></span>
+      </div>
+      <audio id="custom-audio" controls style="width:100%;margin-top:12px;display:none"></audio>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.0/lame.min.js"></script>
+<script src="data.js"></script>
+<script src="lock.js"></script>
+<script src="studio.js"></script>
+</body>
+</html>

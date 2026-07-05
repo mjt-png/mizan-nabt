@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محرّر كلمات الدرس — ميزان النبط</title>
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ed{padding:36px 0 100px}
+  .ed h1{font-family:"Aref Ruqaa",serif;font-size:clamp(2rem,6vw,3rem);margin:12px 0 4px}
+  .ed .lead{color:var(--muted);max-width:660px}
+  .bar{position:sticky;top:64px;z-index:30;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    background:rgba(8,11,20,.9);backdrop-filter:blur(10px);border:1px solid var(--line);
+    border-radius:14px;padding:12px 14px;margin:20px 0 26px}
+  .bar .grow{flex:1}
+  .abtn{border:none;cursor:pointer;border-radius:11px;padding:11px 18px;font-family:"Cairo";
+    font-weight:700;font-size:.95rem;display:inline-flex;gap:8px;align-items:center;transition:.2s}
+  .abtn.gold{background:var(--gold-grad);color:#20160a}
+  .abtn.gold:hover{filter:brightness(1.08)}
+  .abtn.ghost{background:transparent;border:1px solid var(--line);color:var(--cream)}
+  .abtn.ghost:hover{border-color:var(--gold-500);color:var(--gold-300)}
+  .draft-note{display:none;align-items:center;gap:12px;background:rgba(217,168,92,.08);
+    border:1px solid var(--gold-500);border-radius:12px;padding:12px 16px;margin-bottom:20px;color:var(--cream)}
+  .draft-note.show{display:flex;flex-wrap:wrap}
+
+  /* شريط علامات التشكيل */
+  .marks{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:6px 0 22px}
+  .marks .hint{color:var(--muted-2);font-size:.82rem;margin-inline-end:6px}
+  .mark{cursor:pointer;border:1px solid var(--line);background:var(--ink-800);color:var(--gold-200,#ecd39a);
+    border-radius:9px;min-width:44px;height:44px;font-family:"Amiri",serif;font-size:1.5rem;
+    display:grid;place-items:center;transition:.15s}
+  .mark:hover{border-color:var(--gold-500);background:var(--ink-700)}
+  .mark small{font-family:"Cairo";font-size:.6rem;color:var(--muted);display:block}
+
+  .group{margin-top:14px}
+  .group > h2{font-family:"Aref Ruqaa",serif;color:var(--gold-300);font-size:1.7rem;
+    display:flex;align-items:center;gap:10px;margin:26px 0 6px}
+  .group > h2::before{content:"◆";color:var(--gold-500);font-size:.7rem}
+  .intro-field{width:100%;background:var(--ink-950);border:1px solid var(--line);color:var(--cream);
+    border-radius:10px;padding:10px 14px;font-family:"Cairo";font-size:.92rem;margin-bottom:16px;resize:vertical}
+
+  .exs{display:grid;gap:16px}
+  .ex{background:linear-gradient(180deg,var(--ink-800),var(--ink-850));border:1px solid var(--line);
+    border-radius:16px;padding:16px 18px}
+  .ex .exhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .ex .exhead b{color:var(--gold-300);font-family:"Aref Ruqaa",serif;font-size:1.15rem}
+  .ex .del{cursor:pointer;border:1px solid #6b2f2c;background:transparent;color:#e5807a;
+    border-radius:9px;padding:6px 12px;font-family:"Cairo";font-size:.82rem;transition:.2s}
+  .ex .del:hover{background:#3a1f1e}
+  .fields{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+  @media(max-width:640px){.fields{grid-template-columns:1fr}}
+  .field label{display:block;color:var(--muted);font-size:.82rem;margin-bottom:6px;font-weight:600}
+  .field .wordin{width:100%;background:var(--ink-950);border:1px solid var(--line);color:var(--cream);
+    border-radius:10px;padding:12px 14px;font-family:"Amiri",serif;font-size:1.5rem;text-align:center}
+  .field .notein{width:100%;background:var(--ink-950);border:1px solid var(--line);color:var(--cream);
+    border-radius:10px;padding:11px 14px;font-family:"Cairo";font-size:.92rem}
+  .field.full{grid-column:1/-1}
+  .field .wordin:focus,.field .notein:focus,.intro-field:focus{outline:none;border-color:var(--gold-500)}
+  .prev{margin-top:8px;background:linear-gradient(160deg,var(--parchment),var(--parchment-2));
+    color:#241d0e;border-radius:10px;padding:10px;text-align:center;font-family:"Amiri",serif;
+    font-size:2rem;min-height:52px;border:1px solid rgba(160,120,50,.35)}
+  .files{grid-column:1/-1;color:var(--muted-2);font-size:.72rem;direction:ltr;text-align:start;
+    font-family:ui-monospace,monospace;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+  .addbtn{margin-top:14px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="logo.png" alt="شعار"><b>ميزان النبط</b></a>
+    <a class="cta-mini" href="index.html">← رجوع للموقع</a>
+  </div>
+</header>
+
+<main class="ed">
+  <div class="wrap">
+    <a class="back" href="index.html" style="color:var(--muted);font-size:.95rem">← الصفحة الرئيسية</a>
+    <h1 class="gold-text">محرّر كلمات الدرس</h1>
+    <p class="lead">اكتب كلمات الدرس بنفسك — الكلمة بالعلامة وبدونها والملاحظة — مع معاينة مباشرة للتشكيل.
+      لمّا تخلّص، اضغط «تنزيل data.js» واستبدل به الملف في مستودعك، وينشر التعديل.</p>
+
+    <!-- علامات التشكيل السريعة -->
+    <div class="marks">
+      <span class="hint">إدراج سريع (يُضاف عند مؤشر آخر خانة كتبت فيها):</span>
+      <button class="mark" data-ins="\u064E">◌َ<small>فتحة</small></button>
+      <button class="mark" data-ins="\u0650">◌ِ<small>كسرة</small></button>
+      <button class="mark" data-ins="\u064F">◌ُ<small>ضمة</small></button>
+      <button class="mark" data-ins="\u0652">◌ْ<small>سكون</small></button>
+      <button class="mark" data-ins="\u0651">◌ّ<small>شدّة</small></button>
+      <button class="mark" data-ins="\u064B">◌ً<small>تنوين</small></button>
+      <button class="mark" data-ins="\u064D">◌ٍ<small>تنوين</small></button>
+      <button class="mark" data-ins="\u064C">◌ٌ<small>تنوين</small></button>
+    </div>
+
+    <div class="draft-note" id="draft-note">
+      <span>عندك مسودّة غير منشورة محفوظة في هذا المتصفح.</span>
+      <button class="abtn ghost" id="use-draft">استخدم المسودّة</button>
+      <button class="abtn ghost" id="drop-draft">ابدأ من المنشور</button>
+    </div>
+
+    <!-- شريط الأدوات -->
+    <div class="bar">
+      <button class="abtn gold" id="export">⤓ تنزيل data.js</button>
+      <button class="abtn ghost" id="reset">استعادة الأصل المنشور</button>
+      <span class="grow"></span>
+      <span id="savestate" style="color:var(--muted);font-size:.85rem"></span>
+    </div>
+
+    <div id="groups"></div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="lock.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>
